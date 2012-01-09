@@ -1,4 +1,4 @@
-// tipsy, facebook style tooltips for jquery
+// tipsycm, facebook style tooltips for jquery
 // version 1.0.0a
 // (c) 2008-2010 jason frame [jason@onehackoranother.com]
 // released under the MIT license
@@ -22,8 +22,8 @@
             if (title && this.enabled) {
                 var $tip = this.tip();
                 
-                $tip.find('.tipsy-inner')[this.options.html ? 'html' : 'text'](title);
-                $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
+                $tip.find('.tipsycm-inner')[this.options.html ? 'html' : 'text'](title);
+                $tip[0].className = 'tipsycm'; // reset classname in case of dynamic gravity
                 $tip.remove().css({top: 0, left: 0, visibility: 'hidden', display: 'block'}).prependTo(document.body);
                 
                 var pos = $.extend({}, this.$element.offset(), {
@@ -59,8 +59,8 @@
                     }
                 }
                 
-                $tip.css(tp).addClass('tipsy-' + gravity);
-                $tip.find('.tipsy-arrow')[0].className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
+                $tip.css(tp).addClass('tipsycm-' + gravity);
+                $tip.find('.tipsycm-arrow')[0].className = 'tipsycm-arrow tipsycm-arrow-' + gravity.charAt(0);
                 if (this.options.className) {
                     $tip.addClass(maybeCall(this.options.className, this.$element[0]));
                 }
@@ -103,7 +103,7 @@
         
         tip: function() {
             if (!this.$tip) {
-                this.$tip = $('<div class="tipsy"></div>').html('<div class="tipsy-arrow"></div><div class="tipsy-inner"></div>');
+                this.$tip = $('<div class="tipsycm"></div>').html('<div class="tipsycm-arrow"></div><div class="tipsycm-inner"></div>');
             }
             return this.$tip;
         },
@@ -121,45 +121,45 @@
         toggleEnabled: function() { this.enabled = !this.enabled; }
     };
     
-    $.fn.tipsy = function(options) {
+    $.fn.tipsycm = function(options) {
         
         if (options === true) {
-            return this.data('tipsy');
+            return this.data('tipsycm');
         } else if (typeof options == 'string') {
-            var tipsy = this.data('tipsy');
-            if (tipsy) tipsy[options]();
+            var tipsycm = this.data('tipsycm');
+            if (tipsycm) tipsycm[options]();
             return this;
         }
         
-        options = $.extend({}, $.fn.tipsy.defaults, options);
+        options = $.extend({}, $.fn.tipsycm.defaults, options);
         
         function get(ele) {
-            var tipsy = $.data(ele, 'tipsy');
-            if (!tipsy) {
-                tipsy = new Tipsy(ele, $.fn.tipsy.elementOptions(ele, options));
-                $.data(ele, 'tipsy', tipsy);
+            var tipsycm = $.data(ele, 'tipsycm');
+            if (!tipsycm) {
+                tipsycm = new Tipsy(ele, $.fn.tipsycm.elementOptions(ele, options));
+                $.data(ele, 'tipsycm', tipsycm);
             }
-            return tipsy;
+            return tipsycm;
         }
         
         function enter() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'in';
+            var tipsycm = get(this);
+            tipsycm.hoverState = 'in';
             if (options.delayIn == 0) {
-                tipsy.show();
+                tipsycm.show();
             } else {
-                tipsy.fixTitle();
-                setTimeout(function() { if (tipsy.hoverState == 'in') tipsy.show(); }, options.delayIn);
+                tipsycm.fixTitle();
+                setTimeout(function() { if (tipsycm.hoverState == 'in') tipsycm.show(); }, options.delayIn);
             }
         };
         
         function leave() {
-            var tipsy = get(this);
-            tipsy.hoverState = 'out';
+            var tipsycm = get(this);
+            tipsycm.hoverState = 'out';
             if (options.delayOut == 0) {
-                tipsy.hide();
+                tipsycm.hide();
             } else {
-                setTimeout(function() { if (tipsy.hoverState == 'out') tipsy.hide(); }, options.delayOut);
+                setTimeout(function() { if (tipsycm.hoverState == 'out') tipsycm.hide(); }, options.delayOut);
             }
         };
         
@@ -176,7 +176,7 @@
         
     };
     
-    $.fn.tipsy.defaults = {
+    $.fn.tipsycm.defaults = {
         className: null,
         delayIn: 0,
         delayOut: 0,
@@ -192,18 +192,18 @@
     };
     
     // Overwrite this method to provide options on a per-element basis.
-    // For example, you could store the gravity in a 'tipsy-gravity' attribute:
-    // return $.extend({}, options, {gravity: $(ele).attr('tipsy-gravity') || 'n' });
+    // For example, you could store the gravity in a 'tipsycm-gravity' attribute:
+    // return $.extend({}, options, {gravity: $(ele).attr('tipsycm-gravity') || 'n' });
     // (remember - do not modify 'options' in place!)
-    $.fn.tipsy.elementOptions = function(ele, options) {
+    $.fn.tipsycm.elementOptions = function(ele, options) {
         return $.metadata ? $.extend({}, options, $(ele).metadata()) : options;
     };
     
-    $.fn.tipsy.autoNS = function() {
+    $.fn.tipsycm.autoNS = function() {
         return $(this).offset().top > ($(document).scrollTop() + $(window).height() / 2) ? 's' : 'n';
     };
     
-    $.fn.tipsy.autoWE = function() {
+    $.fn.tipsycm.autoWE = function() {
         return $(this).offset().left > ($(document).scrollLeft() + $(window).width() / 2) ? 'e' : 'w';
     };
     
@@ -222,7 +222,7 @@
      *        that element's tooltip to be 'se', preserving the southern
      *        component.
      */
-     $.fn.tipsy.autoBounds = function(margin, prefer) {
+     $.fn.tipsycm.autoBounds = function(margin, prefer) {
 		return function() {
 			var dir = {ns: prefer[0], ew: (prefer.length > 1 ? prefer[1] : false)},
 			    boundTop = $(document).scrollTop() + margin,
